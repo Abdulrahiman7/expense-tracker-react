@@ -27,8 +27,15 @@ const UserLogin = () => {
 
     login(user);
     history.push('/');
-   
   };
+
+  const loginWithEmailVerificationHandler=()=>{
+    if(!email.includes('@')) 
+        {
+            alert('please enter valid email');
+            return;
+        }
+  }
   return (
     <Container className="bg-light mt-5 p-4">
     <Row className="justify-content-center">
@@ -60,6 +67,7 @@ const UserLogin = () => {
             Login
           </Button>
         </Form>
+        <Button onClick={loginWithEmailVerificationHandler}>Forgot Password: Click Here</Button>
         <Button onClick={(e)=>history.replace('/signup')} className="mt-3 btn-light btn-outline-dark">new User: Sign Up</Button>
       </Col>
     </Row>

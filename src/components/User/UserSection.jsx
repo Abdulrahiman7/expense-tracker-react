@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Profile from './Profile'
+import Profile from './Profile/Profile'
 import AuthContext from '../../store/auth-context'
 import { Button } from 'react-bootstrap';
 import { NavLink} from 'react-router-dom';
