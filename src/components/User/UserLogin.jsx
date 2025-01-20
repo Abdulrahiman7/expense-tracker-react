@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import AuthContext from "../../store/auth-context";
 
 const UserLogin = () => {
     const [email, setEmail]=useState("");
     const [password,setPassword]=useState("");
     const history=useHistory();
+    const {login}=useContext(AuthContext);
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
     if(!email.includes('@')) 
@@ -21,18 +23,11 @@ const UserLogin = () => {
     const user = {
       email: email,
       password: password,
-      "returnSecureToken": true
     };
-    try {
-      const storeNewUserDataResponse =await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBbP7XnwDNnKLFn5TocX9XAiUNhtZVK57c",
-        user
-      );
-      if (storeNewUserDataResponse.status === 200)
-        history.replace('/');
-    } catch (err) {
-      console.log(err);
-    }
+
+    login(user);
+    history.push('/');
+   
   };
   return (
     <Container className="bg-light mt-5 p-4">

@@ -1,5 +1,6 @@
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -34,7 +35,7 @@ export const AuthContextProvider = (props) => {
     try {
         const storeNewUserDataResponse =await axios.post(
           "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBbP7XnwDNnKLFn5TocX9XAiUNhtZVK57c",
-          newUser
+          user
         );
         console.log(storeNewUserDataResponse);
         if (storeNewUserDataResponse.status === 200)
@@ -49,7 +50,6 @@ export const AuthContextProvider = (props) => {
   }
 
   const logoutHandler=()=>{
-    setIsLoggedIn(false);
     localStorage.removeItem('token');
     alert('logged out successfully');
   }
