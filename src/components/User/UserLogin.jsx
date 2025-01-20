@@ -65,6 +65,7 @@ const UserLogin = () => {
             Login
           </Button>
         </Form>
+        <Button onClick={(e)=>history.replace('/signup')} className="mt-3 btn-light btn-outline-dark">new User: Sign Up</Button>
       </Col>
     </Row>
   </Container>

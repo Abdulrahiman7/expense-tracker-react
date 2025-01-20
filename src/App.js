@@ -1,4 +1,5 @@
 import './App.css';
+import Header from './components/Layout/Header/Header';
 import UserRoutes from './Routes/UserRoutes';
 
 function App() {

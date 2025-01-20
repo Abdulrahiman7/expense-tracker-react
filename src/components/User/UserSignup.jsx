@@ -8,6 +8,7 @@ const UserSignup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const history=useHistory();
+
   const signupFormSubmitHandler = async (event) => {
     event.preventDefault();
     if(!email.includes('@')) 
@@ -28,11 +29,11 @@ const UserSignup = () => {
     };
     try {
       const storeNewUserDataResponse =await axios.post(
-        "https://expense-tracker-react-2b129-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBbP7XnwDNnKLFn5TocX9XAiUNhtZVK57c",
         newUser
       );
       console.log(storeNewUserDataResponse);
-      if (storeNewUserDataResponse.status == 200)
+      if (storeNewUserDataResponse.status === 200)
         alert("signedup Successfully");
     } catch (err) {
       console.log(err);
@@ -80,6 +81,7 @@ const UserSignup = () => {
             Submit
           </Button>
         </Form>
+        <Button onClick={(e)=>history.replace('/login')} className="mt-3 btn-light btn-outline-dark">existing User: Sign In</Button>
       </Col>
     </Row>
   </Container>
