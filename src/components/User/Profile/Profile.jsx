@@ -45,6 +45,7 @@ const Profile = () => {
         try{
             const verifyEmailResponse=await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBbP7XnwDNnKLFn5TocX9XAiUNhtZVK57c',{requestType:"VERIFY_EMAIL", idToken:token})
             console.log(verifyEmailResponse);
+            
         }catch(err)
         {
             console.log(err);

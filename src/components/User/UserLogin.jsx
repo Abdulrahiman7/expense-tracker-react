@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import AuthContext from "../../store/auth-context";
+import EmailModal from "./ForgotPassword/EmailModal";
 
 const UserLogin = () => {
     const [email, setEmail]=useState("");
     const [password,setPassword]=useState("");
+    const [forgotPassWordModalOn, setForgotPasswordModalOn]=useState(false);
     const history=useHistory();
     const {login}=useContext(AuthContext);
   const loginFormSubmitHandler = async (event) => {
@@ -29,15 +31,11 @@ const UserLogin = () => {
     history.push('/');
   };
 
-  const loginWithEmailVerificationHandler=()=>{
-    if(!email.includes('@')) 
-        {
-            alert('please enter valid email');
-            return;
-        }
-  }
   return (
+    
     <Container className="bg-light mt-5 p-4">
+      {forgotPassWordModalOn && <EmailModal show={forgotPassWordModalOn}
+          onClose={() => setForgotPasswordModalOn(false)}/>}
     <Row className="justify-content-center">
       <Col xs={12} md={6} lg={3}>
         <Form onSubmit={loginFormSubmitHandler}>
@@ -67,7 +65,7 @@ const UserLogin = () => {
             Login
           </Button>
         </Form>
-        <Button onClick={loginWithEmailVerificationHandler}>Forgot Password: Click Here</Button>
+        <Button onClick={()=>{setForgotPasswordModalOn(true)}}>Forgot Password: Click Here</Button>
         <Button onClick={(e)=>history.replace('/signup')} className="mt-3 btn-light btn-outline-dark">new User: Sign Up</Button>
       </Col>
     </Row>
