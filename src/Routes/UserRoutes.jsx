@@ -5,6 +5,7 @@ import UserLogin from "../components/User/UserLogin";
 import HomePage from "../components/HomePage/HomePage";
 import Header from "../components/Layout/Header/Header";
 import Profile from "../components/User/Profile/Profile";
+import ResetStatus from "../components/User/ForgotPassword/ResetStatus";
 
 const UserRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const UserRoutes = () => {
         <Route  path='/signup' component={UserSignup} />
         <Route  path='/login' component={UserLogin} />
         <Route path='/profile' component={Profile} />
+        <Route path='/password-reset-status' component={ResetStatus} />
         </Switch>
     </Router>
   )
