@@ -6,7 +6,9 @@ import UserSection from '../../User/UserSection'
 
 const Header = () => {
   return (
-    <Navbar expand="lg" bg="dark" variant="dark">
+    <Navbar expand="lg" bg="dark" variant="dark" className='d-flex justify-content-between p-3 text-light'>
+        <Navbar.Brand><NavLink to='/'>Expense App</NavLink></Navbar.Brand>
+        <NavLink to='/expenses' className="btn btn-outline-light">Expenses</NavLink>
         <UserSection />
     </Navbar>
   )

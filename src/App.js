@@ -1,14 +1,17 @@
-import './App.css';
-import Header from './components/Layout/Header/Header';
-import UserRoutes from './Routes/UserRoutes';
-import { AuthContextProvider } from './store/auth-context';
+import "./App.css";
+import Routes from "./Routes/Routes";
+import Header from "./components/Layout/Header/Header"
+import { AuthContextProvider } from "./store/auth-context";
+import { BrowserRouter} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <AuthContextProvider>
-
-      <UserRoutes />
+        <BrowserRouter>
+          <Header />
+          <Routes />
+        </BrowserRouter>
       </AuthContextProvider>
     </div>
   );

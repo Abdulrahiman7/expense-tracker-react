@@ -18,6 +18,7 @@ const EmailModal = (props) => {
       });
       setSuccess(false);
         alert("sent reset link successfully, Check Your Email");
+        setEmail("");
     } catch (err) {
       console.log(err);
     }
