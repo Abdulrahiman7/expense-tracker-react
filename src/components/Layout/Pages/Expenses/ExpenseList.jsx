@@ -20,7 +20,7 @@ const ExpenseList = () => {
   return (
     <Container>
         {
-            Object.keys(expenses).map((key)=> <Expense key={key} expense={expenses[key]} />)
+            Object.keys(expenses).map((key)=> <Expense key={key} expense={{...expenses[key],id:key}} />)
         }
     </Container>
   )
