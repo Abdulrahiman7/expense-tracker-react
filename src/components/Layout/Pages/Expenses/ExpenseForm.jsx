@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addExpense } from '../../../../store/expense-slice';
 
 const ExpenseForm = () => {
     const [money, setMoney]=useState(0);
@@ -8,6 +10,8 @@ const ExpenseForm = () => {
 
     const [description, setDescription]=useState("");
     const [category, setCategory]=useState("");
+    const dispatch=useDispatch();
+
     const handleExpense=async (event)=>{
         event.preventDefault();
         setError(null);
@@ -30,6 +34,7 @@ const ExpenseForm = () => {
             const uploadNewExpenseResponse=await axios.post('https://expense-tracker-react-2b129-default-rtdb.asia-southeast1.firebasedatabase.app/expenses.json',newExpense);
             if(uploadNewExpenseResponse.status === 200)
             {
+              dispatch(addExpense({...newExpense,id:uploadNewExpenseResponse.data.name}))
                 console.log('success');
             }
         }catch(err)

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Modal, Form, Container } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { deleteExpense } from '../../../../store/expense-slice';
 
 const Expense = (props) => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -8,9 +10,8 @@ const Expense = (props) => {
   const [description, setDescription] = useState(props.expense.description);
   const [category, setCategory] = useState(props.expense.category);
   const [error, setError] = useState(null);
-
-  // Update local state when props.expense changes
-
+  const dispatch=useDispatch();
+console.log(props);
 
   const editExpenseHandler = async (event) => {
     try {
@@ -48,6 +49,7 @@ const Expense = (props) => {
         console.log(props.key);
       const deleteExpenseResponse = await axios.delete(`https://expense-tracker-react-2b129-default-rtdb.asia-southeast1.firebasedatabase.app/expenses/${props.expense.id}.json`); // Use expense.id instead of props.key
       if (deleteExpenseResponse.status === 200) {
+        dispatch(deleteExpense({id:props.expense.id}))
         alert('Expense deleted successfully');
       }
     } catch (err) {

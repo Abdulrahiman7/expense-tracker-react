@@ -1,18 +1,19 @@
+import { Provider } from "react-redux";
 import "./App.css";
 import Routes from "./Routes/Routes";
 import Header from "./components/Layout/Header/Header"
-import { AuthContextProvider } from "./store/auth-context";
 import { BrowserRouter} from "react-router-dom";
+import store from "./store/store";
 
 function App() {
   return (
     <div className="App">
-      <AuthContextProvider>
+      <Provider store={store}>
         <BrowserRouter>
           <Header />
           <Routes />
         </BrowserRouter>
-      </AuthContextProvider>
+        </Provider>
     </div>
   );
 }

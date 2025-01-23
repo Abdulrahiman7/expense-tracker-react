@@ -1,17 +1,18 @@
 import React, { useContext } from 'react'
-import Profile from './Profile/Profile'
-import AuthContext from '../../store/auth-context'
 import { Button } from 'react-bootstrap';
 import { NavLink} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from "../../store/auth-slice"
 
 const UserSection = () => {
-  const {isLoggedIn, logout}=useContext(AuthContext);
+  const dispatch=useDispatch();
+  const isLoggedIn=useSelector((state)=>state.Auth.isAuthenticated);
   return (
       <div className="user-section">
         {isLoggedIn && (
           <>
           <NavLink to='/profile'>Profile</NavLink>
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={()=>dispatch(logout())}>Logout</Button>
           </>
         )
        }

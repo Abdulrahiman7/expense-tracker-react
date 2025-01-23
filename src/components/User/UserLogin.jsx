@@ -2,15 +2,17 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Button, Container, Form, Row, Col, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import AuthContext from "../../store/auth-context";
 import EmailModal from "./ForgotPassword/EmailModal";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/auth-slice";
 
 const UserLogin = () => {
     const [email, setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [forgotPassWordModalOn, setForgotPasswordModalOn]=useState(false);
     const history=useHistory();
-    const {login}=useContext(AuthContext);
+    const dispatch=useDispatch();
+
   const loginFormSubmitHandler = async (event) => {
     event.preventDefault();
     if(!email.includes('@')) 
@@ -25,11 +27,22 @@ const UserLogin = () => {
     const user = {
       email: email,
       password: password,
+      returnSecureToken: true
     };
-
-    login(user);
-    history.push('/');
-  };
+      try {
+        const storeNewUserDataResponse = await axios.post(
+          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBbP7XnwDNnKLFn5TocX9XAiUNhtZVK57c",
+          user
+        );
+        if(storeNewUserDataResponse.status === 200)
+        {    
+          dispatch(login({token:storeNewUserDataResponse.data.idToken}));
+          history.push('/');
+        }else alert('Invalid User Credentials');
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
   return (
     

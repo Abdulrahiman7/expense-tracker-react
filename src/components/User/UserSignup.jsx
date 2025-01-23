@@ -2,14 +2,13 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import AuthContext from "../../store/auth-context";
+
 
 const UserSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const history=useHistory();
-  const {signup}=useContext(AuthContext);
 
   const signupFormSubmitHandler = async (event) => {
     event.preventDefault();
@@ -29,7 +28,19 @@ const UserSignup = () => {
       email: email,
       password: password,
     };
-    signup(newUser);
+    try {
+      const storeNewUserDataResponse =await axios.post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBbP7XnwDNnKLFn5TocX9XAiUNhtZVK57c",
+        newUser
+      );
+      if (storeNewUserDataResponse.status === 200)
+      {
+          alert("signedup Successfully");
+          history.replace('/login');
+      }else alert('unable to signUp');
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Container className="bg-light mt-5 p-4">
